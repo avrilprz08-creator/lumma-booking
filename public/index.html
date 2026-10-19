@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumma | Hairstyle, Nails and Pedi</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <section class="brand"><div class="logo">L</div><div><h1>lumma</h1><p>hairstyle, nails and pedi</p></div></section>
+    <section class="card booking-card">
+      <div class="intro"><span class="eyebrow">RESERVACIONES</span><h2>Agenda tu cita</h2><p>Elige una fecha y un horario disponible para tu servicio.</p></div>
+      <div class="booking-grid">
+        <div><label>Fecha</label><input id="date" type="date" /></div>
+        <div><label>Horario</label><select id="slot"><option value="">Selecciona un horario</option></select></div>
+        <div><label>Nombre</label><input id="name" type="text" placeholder="Tu nombre completo" /></div>
+        <div><label>Teléfono</label><input id="phone" type="tel" placeholder="10 dígitos" /></div>
+        <div class="full"><label>Motivo de la cita</label><textarea id="reason" placeholder="Ej. corte, uñas, pedicure..."></textarea></div>
+      </div>
+      <button id="submit">Confirmar cita</button><p id="message" class="message"></p>
+    </section>
+    <footer>Lumma · Hairstyle, Nails and Pedi</footer>
+  </main>
+  <script>
+    const date = document.querySelector('#date'), slot = document.querySelector('#slot'), message = document.querySelector('#message');
+    const today = new Date(); today.setMinutes(today.getMinutes() - today.getTimezoneOffset()); date.value = today.toISOString().slice(0,10); date.min = date.value;
+    async function loadSlots(){ const r = await fetch('/api/slots?date='+date.value); const data = await r.json(); slot.innerHTML='<option value="">Selecciona un horario</option>'; data.slots.forEach(s=>{ const o=document.createElement('option'); o.value=s.start; o.textContent=data.booked.includes(s.start)?s.label+' · OCUPADO':s.label; o.disabled=data.booked.includes(s.start); slot.appendChild(o); }); }
+    function say(text, ok=false){ message.textContent=text; message.className='message '+(ok?'ok':'error'); }
+    date.addEventListener('change', loadSlots); loadSlots();
+    document.querySelector('#submit').addEventListener('click', async()=>{ const body={date:date.value,start:slot.value,name:document.querySelector('#name').value,phone:document.querySelector('#phone').value,reason:document.querySelector('#reason').value}; const r=await fetch('/api/appointments',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}); const d=await r.json(); if(!r.ok)return say(d.error); say('¡Tu cita quedó registrada correctamente!',true); document.querySelector('#name').value='';document.querySelector('#phone').value='';document.querySelector('#reason').value='';slot.value='';loadSlots(); });
+  </script>
+</body>
+</html>

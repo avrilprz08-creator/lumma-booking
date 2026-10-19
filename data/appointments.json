@@ -1,0 +1,24 @@
+[
+  {
+    "id": "0a9320e3-6d66-4c13-ab5b-9e6c7fe4c390",
+    "date": "2026-10-19",
+    "start": "09:00",
+    "end": "10:30",
+    "label": "9:00 a. m. – 10:30 a. m.",
+    "name": "Avril Avigail",
+    "phone": "8126253868",
+    "reason": "Corte",
+    "createdAt": "2026-10-19T02:24:02.343Z"
+  },
+  {
+    "id": "d410569b-c7ba-4ae2-8417-90e4df507b0e",
+    "date": "2026-10-20",
+    "start": "12:00",
+    "end": "13:30",
+    "label": "12:00 p. m. – 1:30 p. m.",
+    "name": "Avril AGUILae",
+    "phone": "8126253868",
+    "reason": "hjdihf",
+    "createdAt": "2026-10-19T02:26:29.035Z"
+  }
+]

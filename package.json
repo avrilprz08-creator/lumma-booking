@@ -1,0 +1,9 @@
+{
+  "name": "lumma-booking",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sistema de citas para Lumma - Hairstyle, Nails and Pedi",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
